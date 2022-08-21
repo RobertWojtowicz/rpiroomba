@@ -1,0 +1,19 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# *********
+# RPiRoomba v1.0
+# *********
+#
+# Get the current video output type and strip away the unimportant bits
+video="$(tvservice -s | sed "s/^.*\[\([^ ]*\) .*$/\1/" )"
+
+if [ "$video" != "HDMI" ]; then
+        printf "HDMI not detected. Turning off.\n"
+        tvservice -off > /dev/null
+else
+        printf "HDMI detected.\n"
+fi
+
+exit 0
